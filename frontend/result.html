@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Analysis Result — DeepFake Detector</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="result.css" />
+  <link rel="stylesheet" href="hamburger.css" />
+  <link rel="stylesheet" href="mobile.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">DeepFake <strong>Detector</strong><span>👁️</span></div>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="history.html">History</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+      <button class="theme-toggle" id="desktopThemeBtn" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">
+        <span class="theme-icon">🌙</span>
+      </button>
+      <div class="desktop-profile-wrap">
+        <button class="desktop-profile-btn" id="desktopProfileBtn" onclick="toggleDesktopDropdown()">
+          <div class="desktop-profile-avatar" id="desktopAvatarText">MK</div>
+          <span class="desktop-profile-name" id="desktopProfileName">Manish</span>
+          <span style="font-size:10px; color:#6366f1;">▾</span>
+        </button>
+        <div class="desktop-profile-dropdown" id="desktopDropdown">
+          <div class="dropdown-user-header">
+            <div class="dropdown-user-name"  id="dropdownName">Manish Kumar</div>
+            <div class="dropdown-user-email" id="dropdownEmail">manish@gmail.com</div>
+            <div class="dropdown-user-plan">✅ Free Plan · <span id="dropdownScans">3/4</span> scans today</div>
+          </div>
+          <a href="profile.html" class="dropdown-item">👤 &nbsp; View Profile</a>
+          <a href="history.html" class="dropdown-item">📋 &nbsp; My History</a>
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-item danger" onclick="signOut()">🚪 &nbsp; Sign Out</div>
+        </div>
+      </div>
+      <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleMenu()" aria-label="Open menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- OVERLAY -->
+  <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
+
+  <!-- SIDE MENU -->
+  <aside class="side-menu" id="sideMenu" role="navigation" aria-label="Mobile menu">
+    <div class="menu-header">
+      <div class="menu-logo">👁️ DeepFake <strong>Detector</strong></div>
+      <button class="menu-close" onclick="closeMenu()" aria-label="Close menu">✕</button>
+    </div>
+    <div class="menu-profile">
+      <div class="menu-profile-guest" id="menuGuestSection">
+        <div class="menu-guest-text">
+          <strong>👋 Welcome!</strong>
+          Sign in to save your scan history
+        </div>
+        <div class="menu-auth-btns">
+          <a href="signin.html" class="menu-btn-signin" onclick="closeMenu()">🔑 Sign In</a>
+          <a href="signup.html" class="menu-btn-signup" onclick="closeMenu()">✨ Sign Up</a>
+        </div>
+      </div>
+      <div class="menu-profile-user" id="menuUserSection">
+        <div class="menu-avatar" id="menuAvatarText">MK</div>
+        <div class="menu-user-info">
+          <div class="menu-user-name"  id="menuUserName">Manish Kumar</div>
+          <div class="menu-user-email" id="menuUserEmail">manish@gmail.com</div>
+          <div class="menu-scan-badge" id="menuScanBadge">⚡ 3/4 scans today</div>
+        </div>
+        <button class="menu-edit-btn" onclick="editProfile()" title="Edit profile">✏️</button>
+      </div>
+    </div>
+    <nav class="menu-nav">
+      <div class="menu-section-label">Navigation</div>
+      <a href="index.html" class="menu-nav-item" onclick="closeMenu()">
+        <span class="menu-nav-icon">🏠</span>
+        <span class="menu-nav-text">Home</span>
+      </a>
+      <a href="history.html" class="menu-nav-item" onclick="closeMenu()" id="menuHistoryLink">
+        <span class="menu-nav-icon">📋</span>
+        <span class="menu-nav-text">History</span>
+        <span class="menu-nav-badge" id="menuHistoryBadge" style="display:none;">3</span>
+      </a>
+      <a href="about.html" class="menu-nav-item" onclick="closeMenu()">
+        <span class="menu-nav-icon">ℹ️</span>
+        <span class="menu-nav-text">About</span>
+      </a>
+      <a href="profile.html" class="menu-nav-item" id="menuProfileLink" style="display:none;" onclick="closeMenu()">
+        <span class="menu-nav-icon">👤</span>
+        <span class="menu-nav-text">My Profile</span>
+      </a>
+      <div class="menu-divider"></div>
+      <div class="menu-section-label">Account</div>
+      <a href="signin.html" class="menu-nav-item" id="menuSignInLink" onclick="closeMenu()">
+        <span class="menu-nav-icon">🔑</span>
+        <span class="menu-nav-text">Sign In</span>
+      </a>
+      <a href="signup.html" class="menu-nav-item" id="menuSignUpLink" onclick="closeMenu()">
+        <span class="menu-nav-icon">✨</span>
+        <span class="menu-nav-text">Sign Up</span>
+      </a>
+      <button class="menu-nav-item signout" id="menuSignOutBtn" style="display:none;" onclick="signOut()">
+        <span class="menu-nav-icon">🚪</span>
+        <span class="menu-nav-text">Sign Out</span>
+      </button>
+    </nav>
+    <div class="menu-footer">
+      <div class="theme-row">
+        <div class="theme-row-label">
+          <div class="theme-row-icon" id="themeRowIcon">🌙</div>
+          <span id="themeRowText">Dark Mode</span>
+        </div>
+        <label class="theme-switch">
+          <input type="checkbox" id="themeSwitchInput" onchange="toggleThemeSwitch(this)">
+          <span class="theme-slider"></span>
+        </label>
+      </div>
+    </div>
+  </aside>
+
+  <!-- SCANNING OVERLAY -->
+  <div class="scan-overlay" id="scanOverlay">
+    <div class="scan-overlay-inner">
+      <div class="scan-box">
+        <div class="scan-corner tl"></div>
+        <div class="scan-corner tr"></div>
+        <div class="scan-corner bl"></div>
+        <div class="scan-corner br"></div>
+        <div class="scan-beam"></div>
+        <div class="scan-overlay-text">ANALYZING IMAGE</div>
+        <div class="scan-dots">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+      <div class="scan-progress-wrap">
+        <div class="scan-progress-bar" id="scanProgress"></div>
+      </div>
+      <div class="scan-status" id="scanStatus">Initializing CNN model...</div>
+    </div>
+  </div>
+
+  <!-- MAIN RESULT PAGE -->
+  <main class="result-main" id="resultMain" style="opacity:0;">
+
+    <div class="result-topbar">
+      <a href="index.html" class="btn-back">← Analyze Another</a>
+      <div class="result-topbar-title">
+        <span class="result-label-small">ANALYSIS REPORT</span>
+        <h1 class="result-heading">Detection Result</h1>
+      </div>
+      <button class="btn-save-history" onclick="saveToHistory()">💾 Save to History</button>
+    </div>
+
+    <div class="result-grid">
+      <div class="result-left">
+
+        <div class="result-card image-preview-card animate-in" style="--delay:0.1s">
+          <div class="card-header">
+            <span class="card-icon">🖼️</span>
+            <span class="card-title">Uploaded Image</span>
+          </div>
+          <div class="image-preview-wrap">
+            <img src="" alt="Uploaded image" class="preview-img" id="previewImg" />
+            <div class="image-overlay-badge" id="imageBadge">
+              <span class="badge-icon">🤖</span>
+              <span class="badge-text">AI GENERATED</span>
+            </div>
+            <div class="img-scan-grid">
+              <div class="grid-line h1"></div>
+              <div class="grid-line h2"></div>
+              <div class="grid-line v1"></div>
+              <div class="grid-line v2"></div>
+            </div>
+          </div>
+          <div class="image-meta">
+            <div class="meta-item"><span class="meta-key">File</span><span class="meta-val" id="fileName">sample_face.jpg</span></div>
+            <div class="meta-item"><span class="meta-key">Size</span><span class="meta-val" id="fileSize">1.2 MB</span></div>
+            <div class="meta-item"><span class="meta-key">Dims</span><span class="meta-val" id="fileDims">1024 × 768</span></div>
+            <div class="meta-item"><span class="meta-key">Type</span><span class="meta-val" id="fileType">JPEG</span></div>
+          </div>
+        </div>
+
+        <div class="result-card verdict-card animate-in" id="verdictCard" style="--delay:0.2s">
+          <div class="verdict-glow" id="verdictGlow"></div>
+          <div class="verdict-inner">
+            <div class="verdict-icon-wrap">
+              <div class="verdict-icon" id="verdictIcon">🤖</div>
+              <div class="verdict-pulse"></div>
+            </div>
+            <div class="verdict-text-wrap">
+              <p class="verdict-sub">CNN Model Verdict</p>
+              <h2 class="verdict-main" id="verdictText">AI GENERATED</h2>
+              <p class="verdict-desc" id="verdictDesc">This image shows strong indicators of AI generation. Multiple anomalies detected across texture and pixel layers.</p>
+            </div>
+          </div>
+          <div class="verdict-confidence-row">
+            <span class="confidence-label">Confidence Level</span>
+            <span class="confidence-badge" id="confidenceBadge">HIGH</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="result-right">
+
+        <div class="result-card score-card animate-in" style="--delay:0.3s">
+          <div class="card-header">
+            <span class="card-icon">📊</span>
+            <span class="card-title">Confidence Score</span>
+          </div>
+          <div class="score-display">
+            <div class="score-ring-wrap">
+              <svg class="score-ring" viewBox="0 0 120 120">
+                <circle class="ring-bg" cx="60" cy="60" r="50"/>
+                <circle class="ring-fill" id="ringFill" cx="60" cy="60" r="50"
+                  stroke-dasharray="314" stroke-dashoffset="314"/>
+              </svg>
+              <div class="score-number-wrap">
+                <span class="score-number" id="scoreNumber">0</span>
+                <span class="score-percent">%</span>
+                <span class="score-type" id="scoreType">AI</span>
+              </div>
+            </div>
+            <div class="score-legend">
+              <div class="legend-row"><span class="leg-dot ai"></span><span>AI Generated</span><span class="leg-val" id="aiPct">87%</span></div>
+              <div class="legend-row"><span class="leg-dot real"></span><span>Real Image</span><span class="leg-val" id="realPct">13%</span></div>
+            </div>
+          </div>
+          <div class="processing-info">
+            <span>⚡ Processed in <strong id="procTime">2.3s</strong></span>
+            <span>🧠 Model: <strong>CNN v2.1</strong></span>
+          </div>
+        </div>
+
+        <div class="result-card breakdown-card animate-in" style="--delay:0.4s">
+          <div class="card-header">
+            <span class="card-icon">🔬</span>
+            <span class="card-title">Analysis Breakdown</span>
+          </div>
+          <div class="breakdown-list" id="breakdownList">
+            <div class="breakdown-item" data-score="72">
+              <div class="breakdown-top">
+                <span class="breakdown-icon">🔲</span>
+                <span class="breakdown-name">Pixel Consistency</span>
+                <span class="breakdown-score">72<small>%</small></span>
+              </div>
+              <div class="breakdown-bar-track">
+                <div class="breakdown-bar" style="--width:72%; --color:#f59e0b;"></div>
+              </div>
+              <p class="breakdown-note">Uneven pixel distribution detected in facial region. AI patterns found.</p>
+            </div>
+            <div class="breakdown-item" data-score="91">
+              <div class="breakdown-top">
+                <span class="breakdown-icon">✂️</span>
+                <span class="breakdown-name">Edge Sharpness</span>
+                <span class="breakdown-score">91<small>%</small></span>
+              </div>
+              <div class="breakdown-bar-track">
+                <div class="breakdown-bar" style="--width:91%; --color:#ef4444;"></div>
+              </div>
+              <p class="breakdown-note">Edges are unnaturally sharp — typical of GAN-generated outputs.</p>
+            </div>
+            <div class="breakdown-item" data-score="85">
+              <div class="breakdown-top">
+                <span class="breakdown-icon">🧵</span>
+                <span class="breakdown-name">Texture Analysis</span>
+                <span class="breakdown-score">85<small>%</small></span>
+              </div>
+              <div class="breakdown-bar-track">
+                <div class="breakdown-bar" style="--width:85%; --color:#ef4444;"></div>
+              </div>
+              <p class="breakdown-note">Skin texture lacks natural micro-variation. Synthetic smoothing detected.</p>
+            </div>
+            <div class="breakdown-item" data-score="93">
+              <div class="breakdown-top">
+                <span class="breakdown-icon">👾</span>
+                <span class="breakdown-name">GAN Artifacts</span>
+                <span class="breakdown-score">93<small>%</small></span>
+              </div>
+              <div class="breakdown-bar-track">
+                <div class="breakdown-bar" style="--width:93%; --color:#ef4444;"></div>
+              </div>
+              <p class="breakdown-note">Classic GAN checkerboard artifacts found near ear and hairline region.</p>
+            </div>
+            <div class="breakdown-item" data-score="68">
+              <div class="breakdown-top">
+                <span class="breakdown-icon">🎨</span>
+                <span class="breakdown-name">Color Distribution</span>
+                <span class="breakdown-score">68<small>%</small></span>
+              </div>
+              <div class="breakdown-bar-track">
+                <div class="breakdown-bar" style="--width:68%; --color:#f59e0b;"></div>
+              </div>
+              <p class="breakdown-note">Color histogram shows non-natural clustering patterns across RGB channels.</p>
+            </div>
+            <div class="breakdown-item" data-score="79">
+              <div class="breakdown-top">
+                <span class="breakdown-icon">📡</span>
+                <span class="breakdown-name">Noise Pattern</span>
+                <span class="breakdown-score">79<small>%</small></span>
+              </div>
+              <div class="breakdown-bar-track">
+                <div class="breakdown-bar" style="--width:79%; --color:#f59e0b;"></div>
+              </div>
+              <p class="breakdown-note">Image noise does not match real camera sensor signatures. AI pattern detected.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- FULL REPORT -->
+    <div class="result-card full-report-card animate-in" style="--delay:0.5s">
+      <div class="card-header">
+        <span class="card-icon">📄</span>
+        <span class="card-title">Full Analysis Report</span>
+        <button class="btn-download" onclick="downloadReport()">⬇️ Download PDF</button>
+      </div>
+      <div class="report-grid">
+        <div class="report-section">
+          <h4 class="report-sec-title">🔍 Summary</h4>
+          <p class="report-text" id="reportSummary">
+            The uploaded image has been analyzed by our CNN-based deepfake detection model. Based on multi-layer analysis including pixel-level inspection, texture mapping, frequency analysis and GAN artifact detection, the model concludes with <strong>HIGH confidence</strong> that this image is <strong>AI-generated</strong>.
+          </p>
+        </div>
+        <div class="report-section">
+          <h4 class="report-sec-title">⚠️ Key Anomalies Found</h4>
+          <ul class="report-list" id="anomalyList">
+            <li>GAN checkerboard pattern near hairline and ears</li>
+            <li>Unnatural skin smoothness — missing pores and micro-texture</li>
+            <li>Eyes show symmetric perfection inconsistent with real biology</li>
+            <li>Background blending artifacts at facial boundary edges</li>
+            <li>DCT frequency coefficients show non-camera-like distribution</li>
+          </ul>
+        </div>
+        <div class="report-section">
+          <h4 class="report-sec-title">✅ What Looked Real</h4>
+          <ul class="report-list green" id="realList">
+            <li>Overall color temperature matches real photography</li>
+            <li>Lighting direction appears consistent</li>
+            <li>No obvious copy-paste artifacts or splicing detected</li>
+          </ul>
+        </div>
+        <div class="report-section">
+          <h4 class="report-sec-title">💡 Recommendation</h4>
+          <div class="recommendation-box" id="recommendationBox">
+            <span class="rec-icon">🚨</span>
+            <p>Do <strong>NOT</strong> use this image as evidence or trust it as authentic. Strong AI-generation indicators suggest this was created using a generative model such as StyleGAN, Stable Diffusion, or Midjourney.</p>
+          </div>
+        </div>
+      </div>
+      <div class="report-footer-strip">
+        <span>🕐 Analyzed: <span id="analysisTime">30 Mar 2026, 14:35</span></span>
+        <span>🆔 Report ID: <span id="reportId">DF-2026-0330-8472</span></span>
+        <span>🤖 Model: CNN v2.1 (Hugging Face)</span>
+        <span>✅ Status: Complete</span>
+      </div>
+    </div>
+
+    <!-- ACTION BUTTONS -->
+    <div class="action-row animate-in" style="--delay:0.6s">
+      <a href="index.html" class="btn-action primary">🔍 Analyze Another Image</a>
+      <a href="history.html" class="btn-action secondary">📋 View History</a>
+      <button class="btn-action ghost" onclick="shareResult()">🔗 Share Result</button>
+      <button class="btn-action ghost" onclick="downloadReport()">⬇️ Download Report</button>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">👁️ DeepFake Detector</div>
+      <p class="footer-desc">AI-powered image authenticity detection.</p>
+      <p class="footer-copy">&copy; 2026 DeepFake Detection System. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- hamburger.js PEHLE — phir result.js -->
+  <script src="hamburger.js"></script>
+  <script src="result.js"></script>
+  <script>
+    function saveToHistory() {
+      const btn = document.querySelector('.btn-save-history');
+      btn.textContent = '✅ Saved!';
+      btn.style.background = 'var(--accent-green, #10b981)';
+      setTimeout(() => { btn.textContent = '💾 Save to History'; btn.style.background = ''; }, 2000);
+    }
+    function shareResult() {
+      if (navigator.share) {
+        navigator.share({ title: 'DeepFake Detection Result', url: window.location.href });
+      } else {
+        navigator.clipboard.writeText(window.location.href);
+        alert('Link copied to clipboard!');
+      }
+    }
+    function downloadReport() {
+      alert('PDF download will be connected to backend API in Phase 3.');
+    }
+  </script>
+
+</body>
+</html>
