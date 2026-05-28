@@ -3,6 +3,7 @@
 // Sab fetch calls yahan se hoti hain
 
 const API_URL = "https://deepfake-detection-system-jnfo.onrender.com" // Flask server URL
+const API = API_URL
 
 // ════════════════════════════════
 // AUTH FUNCTIONS
