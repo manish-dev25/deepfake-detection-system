@@ -18,7 +18,6 @@
         <li><a href="history.html">History</a></li>
         <li><a href="about.html">About</a></li>
       </ul>
-      <!-- Desktop Auth Buttons -->
       <div class="desktop-auth-btns" id="desktopAuthBtns">
         <a href="signin.html" class="desk-signin">Sign In</a>
         <a href="signup.html" class="desk-signup">Sign Up</a>
@@ -215,7 +214,7 @@
           <h3 class="dev-name">Manish Kumar</h3>
           <p class="dev-college">Himachal Pradesh University, Shimla</p>
           <div class="dev-links">
-            <a href="https://github.com/ankit252525" target="_blank" class="dev-link">
+            <a href="https://github.com/manish-dev25" target="_blank" class="dev-link">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
               GitHub
             </a>
@@ -243,13 +242,9 @@
   </footer>
 
   <script src="hamburger.js"></script>
+  <script src="api.js"></script>
   <script>
-
-    const check = window.checkScanAllowed();
-    if (!check.allowed) { window.showUpgrade(check.reason); return; }
-    window.recordScan({ verdict, ai_score, real_score, confidence, processing_time, status:'completed' });
-    // ✅ RELATIVE URL — localhost aur ngrok dono pe kaam karega
-    const API_URL = "/api/analyze";
+    const ANALYZE_URL = "https://deepfake-detection-system-jnfo.onrender.com/api/analyze";
     let selectedFile = null;
 
     document.getElementById('imageUpload').addEventListener('change', function(e) {
@@ -292,21 +287,44 @@
 
     async function analyzeImage() {
       if (!selectedFile) { showError('⚠️ Please select an image first.'); return; }
+
+      if (window.checkScanAllowed) {
+        const check = window.checkScanAllowed();
+        if (!check.allowed) { showError(check.reason); return; }
+      }
+
       const btn = document.getElementById('analyzeBtn');
       btn.textContent = '⏳ Analyzing...';
       btn.style.background = '#374151';
       btn.style.pointerEvents = 'none';
       hideError();
+
       try {
         const formData = new FormData();
         formData.append('image', selectedFile);
-        const response = await fetch(API_URL, { method: 'POST', body: formData });
+        const response = await fetch(ANALYZE_URL, { method: 'POST', body: formData });
         const data = await response.json();
         if (!response.ok || !data.success) throw new Error(data.error || 'API error.');
+
+        if (window.recordScan) {
+          window.recordScan({
+            verdict: data.verdict,
+            ai_score: data.ai_score,
+            real_score: data.real_score,
+            confidence: data.confidence,
+            processing_time: data.processing_time,
+            status: 'completed'
+          });
+        }
+
         localStorage.setItem('deepfake_result', JSON.stringify(data));
         const reader = new FileReader();
-        reader.onload = e => { localStorage.setItem('deepfake_image', e.target.result); window.location.href = 'result.html'; };
+        reader.onload = e => {
+          localStorage.setItem('deepfake_image', e.target.result);
+          window.location.href = 'result.html';
+        };
         reader.readAsDataURL(selectedFile);
+
       } catch (err) {
         btn.textContent = '🔍 Analyze Image Now';
         btn.style.background = '';
