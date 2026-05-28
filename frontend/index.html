@@ -10,7 +10,6 @@
 </head>
 <body>
 
-  <!-- NAV -->
   <nav>
     <div class="nav-logo">DeepFake <strong>Detector</strong> <span>👁️</span></div>
     <div class="nav-right">
@@ -19,6 +18,11 @@
         <li><a href="history.html">History</a></li>
         <li><a href="about.html">About</a></li>
       </ul>
+      <!-- Desktop Auth Buttons -->
+      <div class="desktop-auth-btns" id="desktopAuthBtns">
+        <a href="signin.html" class="desk-signin">Sign In</a>
+        <a href="signup.html" class="desk-signup">Sign Up</a>
+      </div>
       <button class="theme-toggle" id="desktopThemeBtn" onclick="toggleTheme()" aria-label="Toggle theme">
         <span class="theme-icon">🌙</span>
       </button>
@@ -40,7 +44,6 @@
           <div class="dropdown-item danger" onclick="signOut()">🚪 &nbsp; Sign Out</div>
         </div>
       </div>
-      <!-- HAMBURGER BUTTON -->
       <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleMenu()" aria-label="Open menu">
         <span class="bar"></span>
         <span class="bar"></span>
@@ -49,10 +52,7 @@
     </div>
   </nav>
 
-  <!-- OVERLAY -->
   <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
-
-  <!-- SIDE MENU -->
   <aside class="side-menu" id="sideMenu">
     <div class="menu-header">
       <div class="menu-logo">👁️ DeepFake <strong>Detector</strong></div>
@@ -82,35 +82,28 @@
     <nav class="menu-nav">
       <div class="menu-section-label">Navigation</div>
       <a href="index.html" class="menu-nav-item active" onclick="closeMenu()">
-        <span class="menu-nav-icon">🏠</span>
-        <span class="menu-nav-text">Home</span>
+        <span class="menu-nav-icon">🏠</span><span class="menu-nav-text">Home</span>
       </a>
       <a href="history.html" class="menu-nav-item" onclick="closeMenu()" id="menuHistoryLink">
-        <span class="menu-nav-icon">📋</span>
-        <span class="menu-nav-text">History</span>
+        <span class="menu-nav-icon">📋</span><span class="menu-nav-text">History</span>
         <span class="menu-nav-badge" id="menuHistoryBadge" style="display:none;">3</span>
       </a>
       <a href="about.html" class="menu-nav-item" onclick="closeMenu()">
-        <span class="menu-nav-icon">ℹ️</span>
-        <span class="menu-nav-text">About</span>
+        <span class="menu-nav-icon">ℹ️</span><span class="menu-nav-text">About</span>
       </a>
       <a href="profile.html" class="menu-nav-item" id="menuProfileLink" style="display:none;" onclick="closeMenu()">
-        <span class="menu-nav-icon">👤</span>
-        <span class="menu-nav-text">My Profile</span>
+        <span class="menu-nav-icon">👤</span><span class="menu-nav-text">My Profile</span>
       </a>
       <div class="menu-divider"></div>
       <div class="menu-section-label">Account</div>
       <a href="signin.html" class="menu-nav-item" id="menuSignInLink" onclick="closeMenu()">
-        <span class="menu-nav-icon">🔑</span>
-        <span class="menu-nav-text">Sign In</span>
+        <span class="menu-nav-icon">🔑</span><span class="menu-nav-text">Sign In</span>
       </a>
       <a href="signup.html" class="menu-nav-item" id="menuSignUpLink" onclick="closeMenu()">
-        <span class="menu-nav-icon">✨</span>
-        <span class="menu-nav-text">Sign Up</span>
+        <span class="menu-nav-icon">✨</span><span class="menu-nav-text">Sign Up</span>
       </a>
       <button class="menu-nav-item signout" id="menuSignOutBtn" style="display:none;" onclick="signOut()">
-        <span class="menu-nav-icon">🚪</span>
-        <span class="menu-nav-text">Sign Out</span>
+        <span class="menu-nav-icon">🚪</span><span class="menu-nav-text">Sign Out</span>
       </button>
     </nav>
     <div class="menu-footer">
@@ -127,7 +120,6 @@
     </div>
   </aside>
 
-  <!-- HERO -->
   <header class="hero">
     <div class="hero-text">
       <h1>DeepFake Detection</h1>
@@ -140,24 +132,14 @@
     </div>
     <div class="scanner-wrap">
       <div class="scanner-container">
-        <div class="ring ring-1"></div>
-        <div class="ring ring-2"></div>
-        <div class="ring ring-3"></div>
-        <div class="eye-outer">
-          <div class="eye-inner">
-            <div class="iris"><div class="pupil"></div></div>
-          </div>
-        </div>
+        <div class="ring ring-1"></div><div class="ring ring-2"></div><div class="ring ring-3"></div>
+        <div class="eye-outer"><div class="eye-inner"><div class="iris"><div class="pupil"></div></div></div></div>
         <div class="scan-line"></div>
-        <div class="bracket top-left"></div>
-        <div class="bracket top-right"></div>
-        <div class="bracket bottom-left"></div>
-        <div class="bracket bottom-right"></div>
+        <div class="bracket top-left"></div><div class="bracket top-right"></div>
+        <div class="bracket bottom-left"></div><div class="bracket bottom-right"></div>
         <div class="radar-sweep"></div>
-        <div class="orbit-dot dot-top"></div>
-        <div class="orbit-dot dot-right"></div>
-        <div class="orbit-dot dot-bottom"></div>
-        <div class="orbit-dot dot-left"></div>
+        <div class="orbit-dot dot-top"></div><div class="orbit-dot dot-right"></div>
+        <div class="orbit-dot dot-bottom"></div><div class="orbit-dot dot-left"></div>
         <div class="scanner-label">AI SCANNER</div>
       </div>
     </div>
@@ -169,10 +151,10 @@
       <h2>Upload Image for Analysis</h2>
       <p class="section-sub">Supports JPG, PNG, WEBP — Max size 10MB</p>
       <div class="drop-zone" id="dropZone">
-        <div id="previewContainer" style="display:none; flex-direction:column; align-items:center; gap:12px; padding:16px; width:100%;">
-          <img id="imagePreview" src="" alt="Preview" style="max-width:100%; max-height:260px; border-radius:10px; object-fit:contain; border:2px solid rgba(233,69,96,0.4);" />
-          <button onclick="removeImage()" style="background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.4); color:#ef4444; padding:6px 16px; border-radius:8px; cursor:pointer; font-size:13px;">✕ Remove</button>
-          <div id="previewInfo" style="font-size:12px; color:#64748b; font-family:monospace;"></div>
+        <div id="previewContainer" style="display:none;flex-direction:column;align-items:center;gap:12px;padding:16px;width:100%;">
+          <img id="imagePreview" src="" alt="Preview" style="max-width:100%;max-height:260px;border-radius:10px;object-fit:contain;border:2px solid rgba(233,69,96,0.4);" />
+          <button onclick="removeImage()" style="background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.4);color:#ef4444;padding:6px 16px;border-radius:8px;cursor:pointer;font-size:13px;">✕ Remove</button>
+          <div id="previewInfo" style="font-size:12px;color:#64748b;font-family:monospace;"></div>
         </div>
         <div id="uploadUI">
           <div class="drop-icon">🖼️</div>
@@ -183,7 +165,7 @@
         </div>
         <input type="file" id="imageUpload" accept="image/*" />
       </div>
-      <div id="errorMsg" style="display:none; margin-top:10px; padding:12px 18px; background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.3); border-radius:10px; color:#ef4444; font-size:14px; text-align:center;"></div>
+      <div id="errorMsg" style="display:none;margin-top:10px;padding:12px 18px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);border-radius:10px;color:#ef4444;font-size:14px;text-align:center;"></div>
       <div class="options-box">
         <h3>Analysis Options</h3>
         <div class="options-grid">
@@ -209,10 +191,10 @@
     <section class="features-section">
       <h2>About This Project</h2>
       <div class="features-grid">
-        <div class="feature-card"><div class="feature-icon">🤖</div><h4>Pre-trained Model</h4><p>Uses a CNN-based model from Hugging Face trained on real vs AI-generated image datasets.</p></div>
-        <div class="feature-card"><div class="feature-icon">🔍</div><h4>Pattern Detection</h4><p>Detects GAN artifacts, unnatural textures and pixel-level inconsistencies in images.</p></div>
+        <div class="feature-card"><div class="feature-icon">🤖</div><h4>Pre-trained Model</h4><p>Uses CNN-based model from Hugging Face trained on real vs AI-generated datasets.</p></div>
+        <div class="feature-card"><div class="feature-icon">🔍</div><h4>Pattern Detection</h4><p>Detects GAN artifacts, unnatural textures and pixel-level inconsistencies.</p></div>
         <div class="feature-card"><div class="feature-icon">🔒</div><h4>Privacy Safe</h4><p>Images processed and deleted after analysis. Nothing stored permanently.</p></div>
-        <div class="feature-card"><div class="feature-icon">📊</div><h4>Confidence Score</h4><p>Gives a percentage score with Low, Medium or High confidence level for each result.</p></div>
+        <div class="feature-card"><div class="feature-icon">📊</div><h4>Confidence Score</h4><p>Percentage score with Low, Medium or High confidence level for each result.</p></div>
         <div class="feature-card"><div class="feature-icon">⚡</div><h4>Fast Processing</h4><p>Results generated in seconds using optimized inference on the backend API.</p></div>
         <div class="feature-card"><div class="feature-icon">🎓</div><h4>Final Year Project</h4><p>Built as a college project to detect AI-generated images using machine learning.</p></div>
       </div>
@@ -262,7 +244,12 @@
 
   <script src="hamburger.js"></script>
   <script>
-    const API_URL = "http://127.0.0.1:5000/api/analyze";
+
+    const check = window.checkScanAllowed();
+    if (!check.allowed) { window.showUpgrade(check.reason); return; }
+    window.recordScan({ verdict, ai_score, real_score, confidence, processing_time, status:'completed' });
+    // ✅ RELATIVE URL — localhost aur ngrok dono pe kaam karega
+    const API_URL = "/api/analyze";
     let selectedFile = null;
 
     document.getElementById('imageUpload').addEventListener('change', function(e) {
@@ -276,7 +263,7 @@
     dropZone.addEventListener('click', e => { if (e.target.tagName === 'BUTTON' || e.target.tagName === 'LABEL') return; if (selectedFile) return; document.getElementById('imageUpload').click(); });
 
     function handleFile(file) {
-      if (!['image/jpeg','image/png','image/webp','image/gif'].includes(file.type)) { showError('❌ Invalid file type. Use JPG, PNG, WEBP or GIF.'); return; }
+      if (!['image/jpeg','image/png','image/webp','image/gif'].includes(file.type)) { showError('❌ Invalid file type.'); return; }
       if (file.size > 10*1024*1024) { showError('❌ File too large. Max 10MB.'); return; }
       hideError();
       selectedFile = file;
@@ -324,7 +311,7 @@
         btn.textContent = '🔍 Analyze Image Now';
         btn.style.background = '';
         btn.style.pointerEvents = '';
-        showError('❌ ' + err.message + ' — Make sure Flask server is running.');
+        showError('❌ ' + err.message);
       }
     }
   </script>

@@ -1,20 +1,5 @@
 /* mobile.css — No hamburger conflicts, z-index clean */
 
-/* NAV — fixed mobile, z-index BELOW overlay+sidemenu */
-@media (max-width: 768px) {
-  nav {
-    position: fixed !important;
-    top: 0 !important; left: 0 !important; right: 0 !important;
-    height: 56px !important;
-    padding: 0 16px !important;
-    z-index: 100 !important;
-    background: rgba(4,7,15,0.97) !important;
-    backdrop-filter: blur(14px) !important;
-  }
-  .nav-logo { font-size: 15px !important; }
-  .nav-right { gap: 8px !important; }
-}
-
 /* HERO */
 @media (max-width: 900px) {
   .hero {

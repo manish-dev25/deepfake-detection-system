@@ -106,13 +106,39 @@ nav {
     position: fixed;
     top: 0; left: 0; right: 0;
     height: 56px;
-    padding: 0 16px;
+    padding: 0 12px;
     z-index: 100;
+    overflow: visible;
+    display: flex;              /* ← add */
+    align-items: center;        /* ← add */
+    justify-content: space-between; /* ← add */
   }
-  .nav-links { display: none; }
-  .theme-toggle { display: none; }
-  .desktop-profile-wrap { display: none; }
-  .hamburger-btn { display: flex; }
+
+  .nav-logo {
+    font-size: 1.3rem !important;  /* ← chhota karo */
+    flex-shrink: 1 !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    max-width: calc(100% - 60px) !important; /* hamburger ke liye jagah */
+  }
+
+  .nav-right {
+    flex-shrink: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .nav-links { display: none !important; }
+  .theme-toggle { display: none !important; }
+  .desktop-profile-wrap { display: none !important; }
+  
+  .hamburger-btn {
+    display: flex !important;
+    flex-shrink: 0 !important;
+    z-index: 101 !important;
+  }
 }
 
 /* ── HERO ── */
@@ -240,3 +266,44 @@ footer { background:#04070f; border-top:1px solid rgba(255,255,255,0.05); paddin
 ::-webkit-scrollbar-thumb { background:#2a3347; border-radius:4px; }
 ::-webkit-scrollbar-thumb:hover { background:var(--accent); }
 ::selection { background:rgba(233,69,96,0.2); }
+/* ── DESKTOP AUTH BUTTONS ── */
+.desktop-auth-btns {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.desk-signin {
+  padding: 7px 16px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: 'Rajdhani', sans-serif;
+  letter-spacing: 0.04em;
+  color: #f4aab7;
+  border: 1px solid rgba(233,69,96,0.4);
+  background: transparent;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.desk-signin:hover {
+  background: rgba(233,69,96,0.1);
+  color: #fff;
+}
+.desk-signup {
+  padding: 7px 16px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: 'Rajdhani', sans-serif;
+  letter-spacing: 0.04em;
+  color: #fff;
+  background: #e94560;
+  border: none;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.desk-signup:hover { background: #d63651; }
+
+@media (max-width: 768px) {
+  .desktop-auth-btns { display: none !important; }
+}

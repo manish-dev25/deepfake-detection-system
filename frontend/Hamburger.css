@@ -22,23 +22,29 @@
 /* SIDE MENU */
 .side-menu {
   position: fixed;
-  top: 0;
+  top: 0px;
   right: -320px;
-  width: 290px;
-  height: 100%;
+  left: auto !important;
+  width: 320px;
+  height: 100dvh;
   z-index: 9000;
   background: #0c0c1b;
   border-left: 1px solid rgba(233,69,96,0.2);
   box-shadow: -8px 0 40px rgba(0,0,0,0.8);
   transition: right 0.3s ease;
-  overflow-y: auto;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
+  visibility: hidden;        /* ← YEH ADD KARO */
+  pointer-events: none;
 }
 [data-theme="light"] .side-menu { background: #f4f5ff; }
 
-.side-menu.open { right: 0; }
+.side-menu.open { right: 0; 
+visibility: visible;        /* ← YEH ADD KARO */
+  pointer-events: all;}
 
 /* MENU HEADER */
 .menu-header {
@@ -215,7 +221,6 @@
   text-align: left;
   margin-bottom: 2px;
   box-sizing: border-box;
-  /* Override nav-links styles */
   text-transform: none !important;
   letter-spacing: normal !important;
   font-family: 'Exo 2', sans-serif !important;
@@ -241,7 +246,17 @@
 .menu-nav-badge { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 10px; background: rgba(233,69,96,0.15); color: #e94560; }
 
 .menu-divider { display: block; height: 1px; background: rgba(233,69,96,0.08); margin: 6px 10px; }
-
+/* Fix menu-nav height conflict */
+nav.menu-nav {
+  height: auto !important;
+  min-height: unset !important;
+  position: static !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 8px 10px !important;
+  display: flex !important;
+  flex-direction: column !important; 
+}
 /* THEME FOOTER */
 .menu-footer {
   padding: 12px 16px;
@@ -267,6 +282,80 @@
 .theme-switch input:checked + .theme-slider { background: rgba(245,158,11,0.2); border-color: rgba(245,158,11,0.35); }
 .theme-switch input:checked + .theme-slider::before { transform: translateX(20px); background: #f59e0b; }
 
+/* ================================================
+   HAMBURGER BUTTON
+   Desktop: hidden | Mobile: visible
+   ================================================ */
+
+/* Desktop pe hamburger hide, nav-links show */
+.hamburger-btn {
+  display: none;
+}
+
+@media (max-width: 768px) {
+
+  .nav-links {
+    display: none !important;
+  }
+
+  .desktop-profile-wrap {
+    display: none !important;
+  }
+
+  .theme-toggle {
+    display: none !important;
+  }
+
+  .nav-right {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin-left: auto !important;
+  }
+
+  .hamburger-btn {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 38px;
+    height: 38px;
+    background: rgba(233, 69, 96, 0.12);
+    border: 1px solid rgba(233, 69, 96, 0.4);
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 0;
+    z-index: 200;
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+
+  .hamburger-btn:hover {
+    background: rgba(233, 69, 96, 0.25);
+  }
+
+  .hamburger-btn .bar {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: #e94560;
+    border-radius: 2px;
+    margin: 2px 0;
+    transition: all 0.3s ease;
+    transform-origin: center;
+  }
+
+  .hamburger-btn.open .bar:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+  .hamburger-btn.open .bar:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  .hamburger-btn.open .bar:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+}
 /* DESKTOP PROFILE DROPDOWN */
 @media (min-width: 769px) {
   .desktop-profile-btn { display: none; align-items: center; gap: 8px; padding: 6px 12px 6px 8px; border-radius: 30px; background: rgba(233,69,96,0.08); border: 1px solid rgba(233,69,96,0.2); cursor: pointer; transition: all 0.2s; }
